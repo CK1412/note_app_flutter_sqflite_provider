@@ -74,6 +74,7 @@ You can use my source code for free for learning purposes. If you reuse it, plea
 [flutter_staggered_grid_view]: https://pub.dev/packages/flutter_staggered_grid_view
 [shared_preferences]: https://pub.dev/packages/shared_preferences
 [url_launcher]: https://pub.dev/packages/url_launcher
+[image_picker]: https://pub.dev/packages/image_picker
 [flutter_colorpicker]: https://pub.dev/packages/flutter_colorpicker
 [intl]: https://pub.dev/packages/intl
 [photo_view]: https://pub.dev/packages/photo_view
