@@ -38,7 +38,7 @@ You can use the app by installing [apk file][apk-file-for-android] (applicable t
 - Support 3 languages: Vietnamese, English, Arabic (If the device does not use the above 3 languages, the first installation will default to Vietnamese)
 - all data will be saved in local storage
 
-## ℹ️ Version and package used
+## ℹ️ Version and packages used
 
 - Flutter 2.8.1 
 - Dart 2.14.3
