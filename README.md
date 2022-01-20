@@ -20,8 +20,8 @@ Don't hesitate to give this project 1 🌟 if you like it. Thank you
 
 ## 👀 App preview
 
-![app preview 1](app_preview\Google-Pixel-4-XL-Presentation.png)
-![app preview 2](app_preview\Google-Pixel-4-XL-Presentation-2.png)
+![app preview 1](app_preview/Google-Pixel-4-XL-Presentation-2.png)
+![app preview 2](app_preview/Google-Pixel-4-XL-Presentation-2.png)
 
 ## 📙 How to Use the Project
 
