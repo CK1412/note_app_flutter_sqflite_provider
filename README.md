@@ -16,7 +16,7 @@ During the implementation process, I encountered some silly errors and promptly 
 
 Finally after a while looking for a fix, I finished this application. I tried to optimize the lines of code to the best of my ability (at the time of project implementation), but of course there will be errors or inadequacies. Looking forward to receiving your valuable contributions.
 
-Don't hesitate to give this project 1 🌟 if you like it. Thank you
+***Don't hesitate to give this project 1 🌟 if you like it. Thank you***
 
 ## 👀 App preview
 
