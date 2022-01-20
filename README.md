@@ -60,7 +60,7 @@ You can use the app by installing [apk file][apk-file-for-android] (applicable t
 
 ## 📝 License
 
-You can use my source code for free for learning purposes. If you reuse it, please cite the source.
+You can use the free source code for learning purposes. If you use for other purposes, please quote the source.
 
 <br/>
 
