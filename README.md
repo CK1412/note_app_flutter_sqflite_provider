@@ -1,4 +1,4 @@
-# <img align="center" width="30px" src="assets\images\note_logo.png" /> note_app_flutter_sqflite_provider 
+# <img align="center" width="30px" src="assets\images\note_logo.png" /> note_app_flutter_sqflite_provider
 
 ## 👋 Introduce
 
@@ -7,6 +7,7 @@ This is a note taking app made with **[Flutter](https://flutter.dev/)** that hel
 The application I created for the purpose of learning to review knowledge such as CRUD SQlite, Provider (state management) and learn some new knowledge such as application internationalization, freeing memory.
 
 During the implementation process, I encountered some silly errors and promptly fixed them. Difficulties I have encountered:
+
 - delete image files and cache when not in use
 - error when undoing a note
 - listen for changes when creating new labels
@@ -16,7 +17,7 @@ During the implementation process, I encountered some silly errors and promptly 
 
 Finally after a while looking for a fix, I finished this application. I tried to optimize the lines of code to the best of my ability (at the time of project implementation), but of course there will be errors or inadequacies. Looking forward to receiving your valuable contributions.
 
-***Don't hesitate to give this project 1 🌟 if you like it. Thank you***
+**_Don't hesitate to give this project 1 🌟 if you like it. Thank you_**
 
 ## 👀 App preview
 
@@ -40,7 +41,7 @@ You can use the app by installing [apk file][apk-file-for-android] (applicable t
 
 ## ℹ️ Version and packages used
 
-- Flutter 2.8.1 
+- Flutter 2.8.1
 - Dart 2.14.3
 - perform operations with path: [path: ^1.8.0][path]
 - find commonly used locations on the file system: [path_provider: ^2.0.8][path_provider]
@@ -57,7 +58,6 @@ You can use the app by installing [apk file][apk-file-for-android] (applicable t
 - create splash screen: [flutter_native_splash: ^1.3.2][flutter_native_splash]
 - updating app's launcher icon: [flutter_launcher_icons: ^0.9.2][flutter_launcher_icons]
 
-
 ## 📝 License
 
 You can use the free source code for learning purposes. If you use for other purposes, please quote the source.
@@ -65,7 +65,9 @@ You can use the free source code for learning purposes. If you use for other pur
 <br/>
 
 [apk-file-for-android]: https://drive.google.com/file/d/1TYwtfyO335ej8BSNzWC5NQU_UO7vnAyr/view?usp=sharing
+
 <!-- Packages -->
+
 [path]: https://pub.dev/packages/path
 [path_provider]: https://pub.dev/packages/path_provider
 [sqflite]: https://pub.dev/packages/sqflite
@@ -81,8 +83,7 @@ You can use the free source code for learning purposes. If you use for other pur
 [flutter_native_splash]: https://pub.dev/packages/flutter_native_splash
 [flutter_launcher_icons]: https://pub.dev/packages/flutter_launcher_icons
 
-
-<!-- 
+<!--
 start : 2/1/2022
-end : 20/1/2022 
+end : 20/1/2022
 -->
