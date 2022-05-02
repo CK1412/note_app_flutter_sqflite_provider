@@ -26,7 +26,7 @@ Finally after a while looking for a fix, I finished this application. I tried to
 
 ## 📙 How to Use the Project
 
-You can use the app by installing [apk file][apk-file-for-android] (applicable to android devices)
+You can use the app by installing [Play Store][app-for-android] (applicable to android devices)
 
 ## 🥰 The main functions of the application
 
@@ -64,7 +64,7 @@ You can use the free source code for learning purposes. If you use for other pur
 
 <br/>
 
-[apk-file-for-android]: https://drive.google.com/file/d/1TYwtfyO335ej8BSNzWC5NQU_UO7vnAyr/view?usp=sharing
+[app-for-android]: https://play.google.com/store/apps/details?id=github.ck1412.noteApp
 
 <!-- Packages -->
 
