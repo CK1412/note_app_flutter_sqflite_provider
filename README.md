@@ -6,7 +6,7 @@ This is a note taking app made with **[Flutter](https://flutter.dev/)** that hel
 
 The application I created for the purpose of learning to review knowledge such as CRUD SQlite, Provider (state management) and learn some new knowledge such as application internationalization, freeing memory.
 
-During the implementation process, I encountered some silly errors and promptly fixed them. Difficulties I have encountered:
+During the implementation process, I encountered some errors and promptly fixed them. Difficulties I have encountered:
 
 - delete image files and cache when not in use
 - error when undoing a note
@@ -15,7 +15,7 @@ During the implementation process, I encountered some silly errors and promptly 
 - meet some errors on performance related async/await, query sqlite
 - and there are some more problems
 
-Finally after a while looking for a fix, I finished this application. I tried to optimize the lines of code to the best of my ability (at the time of project implementation), but of course there will be errors or inadequacies. Looking forward to receiving your valuable contributions.
+Finally after a while looking for a fix, I finished this application. I tried to optimize the lines of code to the best of my ability (at the time of project implementation). To make it better, I look forward to receiving your contributions.
 
 **_Don't hesitate to give this project 1 🌟 if you like it. Thank you_**
 
