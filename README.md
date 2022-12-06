@@ -43,20 +43,20 @@ You can use the app by installing [Play Store][app-for-android] (applicable to a
 
 - Flutter 2.8.1
 - Dart 2.14.3
-- perform operations with path: [path: ^1.8.0][path]
-- find commonly used locations on the file system: [path_provider: ^2.0.8][path_provider]
-- store data locally: [sqflite: ^2.0.0+4][sqflite]
-- state management: [provider: ^6.0.1][provider]
-- use font of google: [google_fonts: ^2.2.0][google_fonts]
-- create staggered grid list: [flutter_staggered_grid_view: ^0.4.1][flutter_staggered_grid_view]
-- store data as key-value (in this project is to save the view mode): [shared_preferences: ^2.0.12][shared_preferences]
-- lauch URL: [url_launcher: ^6.0.13][url_launcher]
-- pick image from camera and gallery: [image_picker: ^0.8.4+4][image_picker]
-- pick color: [flutter_colorpicker: ^1.0.3][flutter_colorpicker]
-- format date and localizations: [intl: ^0.17.0][intl]
-- zoomable image: [photo_view: ^0.13.0][photo_view]
-- create splash screen: [flutter_native_splash: ^1.3.2][flutter_native_splash]
-- updating app's launcher icon: [flutter_launcher_icons: ^0.9.2][flutter_launcher_icons]
+- perform operations with path: [path][path]
+- find commonly used locations on the file system: [path_provider][path_provider]
+- store data locally: [sqflite][sqflite]
+- state management: [provider][provider]
+- use font of google: [google_fonts][google_fonts]
+- create staggered grid list: [flutter_staggered_grid_view][flutter_staggered_grid_view]
+- store data as key-value (in this project is to save the view mode): [shared_preferences][shared_preferences]
+- lauch URL: [url_launcher][url_launcher]
+- pick image from camera and gallery: [image_picker][image_picker]
+- pick color: [flutter_colorpicker][flutter_colorpicker]
+- format date and localizations: [intl][intl]
+- zoomable image: [photo_view][photo_view]
+- create splash screen: [flutter_native_splash][flutter_native_splash]
+- updating app's launcher icon: [flutter_launcher_icons][flutter_launcher_icons]
 
 ## 📝 License
 
