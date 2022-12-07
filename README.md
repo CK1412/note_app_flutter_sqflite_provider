@@ -26,7 +26,7 @@ Finally after a while looking for a fix, I finished this application. I tried to
 
 ## 📙 How to Use the Project
 
-You can use the app by installing [Play Store][app_for_android] (applicable to android devices) or [APK][app_apk]
+You can use the app by installing [Play Store][app_for_android] (applicable to android devices)
 
 ## 🥰 The main functions of the application
 
