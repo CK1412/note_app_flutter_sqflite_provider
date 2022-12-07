@@ -69,7 +69,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
           systemNavigationBarColor: ColorsConstant.grayColor,
