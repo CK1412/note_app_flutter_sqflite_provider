@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/helpers/label_database_helper.dart';
-import 'package:note_app_flutter_sqflite_provider/models/label.dart';
+import '../helpers/label_database_helper.dart';
+import '../models/label.dart';
 
 class LabelProvider with ChangeNotifier {
   List<Label> _items = [];

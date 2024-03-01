@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/assets_path.dart';
+import '../constants/app_constants.dart';
+import '../constants/assets_path.dart';
 
 class ImagesStaggeredGridViewWidget extends StatelessWidget {
   const ImagesStaggeredGridViewWidget({
-    Key? key,
+    super.key,
     required this.imagePaths,
     required this.limitedQuantity,
-  }) : super(key: key);
+  });
 
   final List<String> imagePaths;
   final LimitedQuantity limitedQuantity;
@@ -22,7 +22,7 @@ class ImagesStaggeredGridViewWidget extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       staggeredTileBuilder: (index) {
-        int total = imagePaths.length;
+        final int total = imagePaths.length;
 
         return getStaggeredTile(total: total, index: index);
       },

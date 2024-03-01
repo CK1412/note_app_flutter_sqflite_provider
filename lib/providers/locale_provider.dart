@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/l10n/l10n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../l10n/l10n.dart';
 
 class LocaleProvider with ChangeNotifier {
   Locale _locale = const Locale('vi');
@@ -14,7 +15,7 @@ class LocaleProvider with ChangeNotifier {
     if (prefs.containsKey('language_code')) {
       _locale = Locale(prefs.getString('language_code')!);
     } else {
-      String deviceLanguageCode = Platform.localeName.split('_').first;
+      final String deviceLanguageCode = Platform.localeName.split('_').first;
 
       if (L10n.all.contains(Locale(deviceLanguageCode))) {
         _locale = Locale(deviceLanguageCode);
@@ -28,7 +29,9 @@ class LocaleProvider with ChangeNotifier {
   }
 
   Future changeLocale(Locale locale) async {
-    if (_locale == locale) return;
+    if (_locale == locale) {
+      return;
+    }
 
     _locale = locale;
     notifyListeners();

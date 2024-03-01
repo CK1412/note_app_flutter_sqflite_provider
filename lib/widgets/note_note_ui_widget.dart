@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/assets_path.dart';
+import '../constants/app_constants.dart';
+import '../constants/assets_path.dart';
 
 class NoNoteUIWidget extends StatelessWidget {
   const NoNoteUIWidget({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
 
@@ -36,7 +36,7 @@ class NoNoteUIWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/models/label.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/label_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_constants.dart';
+import '../models/label.dart';
+import '../models/note.dart';
+import '../providers/label_provider.dart';
+import '../providers/note_provider.dart';
 
 class DialogLabelWidget extends StatefulWidget {
   const DialogLabelWidget({
-    Key? key,
+    super.key,
     this.label,
-  }) : super(key: key);
+  });
 
   final Label? label;
 
@@ -83,13 +84,13 @@ class _DialogLabelWidgetState extends State<DialogLabelWidget> {
             child: widget.label == null
                 ? Text(AppLocalizations.of(context)!.create)
                 : Text(AppLocalizations.of(context)!.edit),
-          )
+          ),
         ],
       ),
     );
   }
 
-  _submit() {
+  void _submit() {
     setState(() {
       _isSubmitted = true;
     });
@@ -105,15 +106,15 @@ class _DialogLabelWidgetState extends State<DialogLabelWidget> {
     }
   }
 
-  _addLabel() {
+  void _addLabel() {
     final label = Label(
       title: _labelController.text.trim(),
     );
     context.read<LabelProvider>().add(label);
   }
 
-  _updateLabel() {
-    String newTitle = _labelController.text.trim();
+  void _updateLabel() {
+    final String newTitle = _labelController.text.trim();
 
     final label = widget.label!.copy(title: newTitle);
 
@@ -121,15 +122,17 @@ class _DialogLabelWidgetState extends State<DialogLabelWidget> {
 
     //* update note when label changed
 
-    List<Note> temptNotes = Provider.of<NoteProvider>(context, listen: false)
-        .items
-        .where((e) => e.label == widget.label!.title)
-        .toList();
+    final List<Note> temptNotes =
+        Provider.of<NoteProvider>(context, listen: false)
+            .items
+            .where((e) => e.label == widget.label!.title)
+            .toList();
 
-    List<Note> notesDidUpdated =
+    final List<Note> notesDidUpdated =
         temptNotes.map((e) => e.copy(label: newTitle)).toList();
 
-    for (var element in notesDidUpdated) {
+    for (int i = 0; i < notesDidUpdated.length; i++) {
+      final Note element = notesDidUpdated[i];
       context.read<NoteProvider>().update(element);
     }
   }

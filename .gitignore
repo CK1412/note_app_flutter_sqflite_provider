@@ -45,5 +45,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-key.properties
-app/upload-keystore.jks
+# Sign the app
+android/key.properties
+android/app/upload-keystore.jks
+
+.fvm/

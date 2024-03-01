@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/assets_path.dart';
+import '../constants/assets_path.dart';
 
 Future<bool?> showConfirmDialog({
   required BuildContext context,
@@ -52,14 +52,14 @@ void showNewFeatureNotificationDialog(BuildContext context) {
             AppLocalizations.of(context)!
                 .feature_is_under_development_coming_soon,
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('OK'),
-        )
+        ),
       ],
       actionsAlignment: MainAxisAlignment.center,
     ),

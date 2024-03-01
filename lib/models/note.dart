@@ -31,7 +31,7 @@ class Note {
     required this.bgColor,
   });
 
-  static Note fromJson(Map<String, Object?> json) => Note(
+  factory Note.fromJson(Map<String, dynamic> json) => Note(
         id: json[NoteField.id] as int,
         title: json[NoteField.title].toString(),
         content: json[NoteField.content].toString(),

@@ -1,61 +1,68 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/label_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../constants/app_constants.dart';
+import '../providers/label_provider.dart';
+import '../providers/note_provider.dart';
 
 Future refreshOrGetData(BuildContext context) async {
   // * dùng kiểu này bị lỗi
   // await context.read<NoteProvider>().fetchAndSet();
   // context.read<LabelProvider>().fetchAndSet();
 
-  await Provider.of<NoteProvider>(context, listen: false).fetchAndSet();
-  Provider.of<LabelProvider>(context, listen: false).fetchAndSet();
+  await Provider.of<NoteProvider>(context, listen: false)
+      .fetchAndSet()
+      .whenComplete(() {
+    Provider.of<LabelProvider>(context, listen: false).fetchAndSet();
+  });
 }
 
 Future? openLink(String urlString) async {
-  if (await canLaunch(urlString)) {
-    await launch(urlString);
+  if (await canLaunchUrl(Uri.parse(urlString))) {
+    await canLaunchUrl(Uri.parse(urlString));
   } else {
-    throw 'Could not launch $urlString';
+    throw Exception('Could not launch $urlString');
   }
 }
 
 Future<String> getViewMode() async {
   final prefs = await SharedPreferences.getInstance();
-  if (!prefs.containsKey('view-mode')) return ViewMode.staggeredGrid.name;
+  if (!prefs.containsKey('view-mode')) {
+    return ViewMode.staggeredGrid.name;
+  }
 
   return prefs.getString('view-mode') ?? ViewMode.staggeredGrid.name;
 }
 
 Future<String> changeViewMode(String viewMode) async {
   final prefs = await SharedPreferences.getInstance();
+  late final String newViewMode;
   if (viewMode == ViewMode.list.name) {
-    viewMode = ViewMode.staggeredGrid.name;
+    newViewMode = ViewMode.staggeredGrid.name;
   } else {
-    viewMode = ViewMode.list.name;
+    newViewMode = ViewMode.list.name;
   }
-  await prefs.setString('view-mode', viewMode);
-  return viewMode;
+  await prefs.setString('view-mode', newViewMode);
+  return newViewMode;
 }
 
 Future deleteFile(File file) async {
   try {
-    if (await file.exists()) {
+    if (file.existsSync()) {
       await file.delete();
     }
   } catch (e) {
-    throw 'file read error';
+    throw Exception('file read error');
   }
 }
 
 Future deleteFileList(List<File> fileList) async {
-  for (var file in fileList) {
+  for (final file in fileList) {
     await deleteFile(file);
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
+import '../constants/app_constants.dart';
 
 class LabelCardWidget extends StatelessWidget {
   const LabelCardWidget({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
 

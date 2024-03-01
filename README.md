@@ -41,8 +41,8 @@ You can use the app by installing [Play Store][app_for_android] (applicable to a
 
 ## ℹ️ Version and packages used
 
-- Flutter 2.8.1
-- Dart 2.14.3
+- Flutter 3.19.1
+- Dart 3.3.0
 - perform operations with path: [path][path]
 - find commonly used locations on the file system: [path_provider][path_provider]
 - store data locally: [sqflite][sqflite]

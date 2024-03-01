@@ -32,6 +32,4 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    <!-- add below line then image_picker will work properly on release  -->
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 </manifest>

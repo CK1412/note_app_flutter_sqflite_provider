@@ -2,16 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+import '../constants/app_constants.dart';
+
 class ImageDetailScreen extends StatefulWidget {
   const ImageDetailScreen({
-    Key? key,
+    super.key,
     required this.index,
     required this.imagePaths,
-  }) : super(key: key);
+  });
 
   final int index;
   final List<String> imagePaths;
@@ -61,7 +62,7 @@ class _ImageDetailScreenState extends State<ImageDetailScreen> {
               });
             },
             icon: const Icon(Icons.delete),
-          )
+          ),
         ],
       ),
       body: SizedBox(

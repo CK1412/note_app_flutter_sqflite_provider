@@ -1,5 +1,5 @@
-import 'package:note_app_flutter_sqflite_provider/helpers/database_helper.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
+import '../models/note.dart';
+import 'database_helper.dart';
 
 class NoteDatabaseHelper {
   static final NoteDatabaseHelper instance = NoteDatabaseHelper._init();

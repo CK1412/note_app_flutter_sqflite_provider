@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/models/label.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/utils/note_search.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/note_list_view_widget.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/note_note_ui_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constants/app_constants.dart';
+import '../functions/future_functions.dart';
+import '../models/label.dart';
+import '../providers/note_provider.dart';
+import '../utils/note_search.dart';
+import '../widgets/note_list_view_widget.dart';
+import '../widgets/note_note_ui_widget.dart';
 import 'drawer_screen.dart';
 import 'edit_note_screen.dart';
 
 class AllNotesByLabelScreen extends StatefulWidget {
   const AllNotesByLabelScreen({
-    Key? key,
+    super.key,
     required this.label,
-  }) : super(key: key);
+  });
 
   final Label label;
 
@@ -42,7 +42,7 @@ class _AllNotesByLabelScreenState extends State<AllNotesByLabelScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if (_isLoading == true) {
+    if (_isLoading) {
       Future.wait([
         _loadViewMode(),
         refreshOrGetData(context),
@@ -56,12 +56,16 @@ class _AllNotesByLabelScreenState extends State<AllNotesByLabelScreen> {
 
   Future _loadViewMode() async {
     final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('view-mode')) return;
+    if (!prefs.containsKey('view-mode')) {
+      return;
+    }
 
-    setState(() {
-      _viewMode = prefs.getString('view-mode') ?? ViewMode.staggeredGrid.name;
-      _isLoading = false;
-    });
+    if (context.mounted) {
+      setState(() {
+        _viewMode = prefs.getString('view-mode') ?? ViewMode.staggeredGrid.name;
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -103,7 +107,7 @@ class _AllNotesByLabelScreenState extends State<AllNotesByLabelScreen> {
           ),
           const SizedBox(
             width: 6,
-          )
+          ),
         ],
       ),
       drawer: const DrawerScreen(),

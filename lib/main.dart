@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'screens/settings_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+
+import 'constants/app_constants.dart';
 import 'l10n/l10n.dart';
 import 'providers/label_provider.dart';
 import 'providers/locale_provider.dart';
 import 'providers/note_provider.dart';
-import 'package:provider/provider.dart';
-
-import 'constants/app_constants.dart';
 import 'screens/all_labels_screen.dart';
 import 'screens/all_notes_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'screens/app_infor_screen.dart';
 import 'screens/drawer_screen.dart';
+import 'screens/settings_screen.dart';
 
-main() {
+void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -28,7 +27,7 @@ main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

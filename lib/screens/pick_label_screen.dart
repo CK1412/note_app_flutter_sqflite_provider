@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/label_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/dialog_label_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_constants.dart';
+import '../providers/label_provider.dart';
+import '../widgets/dialog_label_widget.dart';
 
 class PickLabelScreen extends StatefulWidget {
   const PickLabelScreen({
-    Key? key,
+    super.key,
     required this.labelTitle,
-  }) : super(key: key);
+  });
 
   final String labelTitle;
 
@@ -27,10 +28,13 @@ class _PickLabelScreenState extends State<PickLabelScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked:(didPop)  {
+        if(didPop){
+          return;
+        }
         Navigator.of(context).pop(_labelChoosed);
-        return false;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -51,7 +55,9 @@ class _PickLabelScreenState extends State<PickLabelScreen> {
                   builder: (context) => const DialogLabelWidget(),
                 );
                 setState(() {
-                  if (newLabel.isNotEmpty) _labelChoosed = newLabel;
+                  if (newLabel.isNotEmpty) {
+                    _labelChoosed = newLabel;
+                  }
                 });
               },
               icon: const Icon(Icons.add),
@@ -60,32 +66,32 @@ class _PickLabelScreenState extends State<PickLabelScreen> {
         ),
         body: Consumer<LabelProvider>(
           builder: (context, labelProvider, child) =>
-              labelProvider.items.isEmpty
-                  ? child!
-                  : ListView.builder(
-                      itemBuilder: (context, index) {
-                        final currentLabel = labelProvider.items[index];
-                        return CheckboxListTile(
-                          value: _labelChoosed == currentLabel.title,
-                          title: Text(
-                            currentLabel.title,
-                            style: TextStyleConstants.titleStyle3,
-                          ),
-                          secondary: const Icon(Icons.label_outline),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                _labelChoosed = currentLabel.title;
-                              } else {
-                                _labelChoosed = '';
-                              }
-                            });
-                          },
-                          activeColor: ColorsConstant.blueColor,
-                        );
-                      },
-                      itemCount: labelProvider.items.length,
-                    ),
+          labelProvider.items.isEmpty
+              ? child!
+              : ListView.builder(
+            itemBuilder: (context, index) {
+              final currentLabel = labelProvider.items[index];
+              return CheckboxListTile(
+                value: _labelChoosed == currentLabel.title,
+                title: Text(
+                  currentLabel.title,
+                  style: TextStyleConstants.titleStyle3,
+                ),
+                secondary: const Icon(Icons.label_outline),
+                onChanged: (bool? value) {
+                  setState(() {
+                    if (value ?? false) {
+                      _labelChoosed = currentLabel.title;
+                    } else {
+                      _labelChoosed = '';
+                    }
+                  });
+                },
+                activeColor: ColorsConstant.blueColor,
+              );
+            },
+            itemCount: labelProvider.items.length,
+          ),
           child: const SizedBox.shrink(),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/helpers/note_database_helper.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
+import '../helpers/note_database_helper.dart';
+import '../models/note.dart';
 
 class NoteProvider with ChangeNotifier {
   List<Note> _items = [];
@@ -44,14 +44,14 @@ class NoteProvider with ChangeNotifier {
   }
 
   Future removeLabelContent({required String content}) async {
-    int n = _items.length;
+    final int n = _items.length;
     for (var i = 0; i < n; i++) {
       if (_items[i].label == content) {
         //*  đoạn này mới đầu viết như này:
         //! var newNote = item.copy(label: content);
         //?  bảo sao mãi nó không chạy đúng, lú thật
 
-        var newNote = _items[i].copy(label: '');
+        final newNote = _items[i].copy(label: '');
         _items[i] = newNote;
         await NoteDatabaseHelper.instance.updateRecord(newNote);
       }
@@ -60,7 +60,7 @@ class NoteProvider with ChangeNotifier {
   }
 
   Future removeAllLabelContent() async {
-    _items = [..._items.map((e) => e.copy(label: '')).toList()];
+    _items = [..._items.map((e) => e.copy(label: ''))];
     notifyListeners();
     await NoteDatabaseHelper.instance
         .changeFieldValueOfAllRecords(field: NoteField.label, value: '');

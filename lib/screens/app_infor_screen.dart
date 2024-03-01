@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/unordered_list_widget.dart';
+import '../constants/app_constants.dart';
+import '../widgets/unordered_list_widget.dart';
 
 class AppInforScreen extends StatelessWidget {
-  const AppInforScreen({Key? key}) : super(key: key);
+  const AppInforScreen({super.key});
 
   static const routeName = '/app-infor';
 
@@ -33,7 +33,7 @@ class AppInforScreen extends StatelessWidget {
                 Content(
                   content: AppLocalizations.of(context)!
                       .this_app_is_made_for_educational_purposes_only_not_for_commercial_purposes,
-                )
+                ),
               ],
             ),
             UnorderedListWidget(
@@ -41,13 +41,13 @@ class AppInforScreen extends StatelessWidget {
                 Content(
                   content: AppLocalizations.of(context)!
                       .images_used_in_the_application_are_not_owned_by_me,
-                )
+                ),
               ],
             ),
             UnorderedListWidget(
               contentList: [
                 Content(
-                  content: AppLocalizations.of(context)!.connect_with_me + ': ',
+                  content: '${AppLocalizations.of(context)!.connect_with_me}: ',
                   linkName: 'Facebook',
                   link: 'https://www.facebook.com/coolkid48691412',
                 ),
@@ -55,7 +55,7 @@ class AppInforScreen extends StatelessWidget {
                   content: ', ',
                   linkName: 'Github',
                   link: 'https://github.com/CK1412',
-                )
+                ),
               ],
             ),
           ],

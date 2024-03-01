@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/label_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/locale_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/screens/settings_screen.dart';
-import 'package:note_app_flutter_sqflite_provider/utils/app_dialogs.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/custom_list_tile_widget.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/dialog_label_widget.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
+import '../constants/app_constants.dart';
+import '../providers/label_provider.dart';
+import '../providers/locale_provider.dart';
+import '../utils/app_dialogs.dart';
+import '../widgets/custom_list_tile_widget.dart';
+import '../widgets/dialog_label_widget.dart';
 import 'all_labels_screen.dart';
 import 'all_notes_by_label_screen.dart';
 import 'app_infor_screen.dart';
+import 'settings_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
-  const DrawerScreen({Key? key}) : super(key: key);
+  const DrawerScreen({super.key});
+
   static const routeName = '/drawer';
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -35,8 +37,8 @@ class DrawerScreen extends StatelessWidget {
             child: Padding(
               padding:
                   (context.watch<LocaleProvider>().locale.languageCode != 'ar')
-                      ? const EdgeInsets.only(left: 16.0)
-                      : const EdgeInsets.only(right: 16.0),
+                      ? const EdgeInsets.only(left: 16)
+                      : const EdgeInsets.only(right: 16),
               child: Text(
                 AppLocalizations.of(context)!.note,
                 style: const TextStyle(
@@ -122,7 +124,7 @@ class DrawerScreen extends StatelessWidget {
           ),
           const SizedBox(
             height: 20,
-          )
+          ),
         ],
       ),
     );

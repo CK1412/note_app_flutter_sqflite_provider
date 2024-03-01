@@ -1,43 +1,46 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/assets_path.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/picker_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/utils/app_dialogs.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/label_card_widget.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/note_form_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_constants.dart';
+import '../constants/assets_path.dart';
+import '../functions/future_functions.dart';
+import '../functions/picker_functions.dart';
+import '../models/note.dart';
+import '../providers/note_provider.dart';
+import '../utils/app_dialogs.dart';
+import '../widgets/label_card_widget.dart';
+import '../widgets/note_form_widget.dart';
 import 'image_detail_screen.dart';
 import 'pick_label_screen.dart';
 
 class EditNoteScreen extends StatefulWidget {
   const EditNoteScreen({
-    Key? key,
+    super.key,
     this.note,
     this.defaultLabel,
-  }) : super(key: key);
+  });
 
   final Note? note;
   final String? defaultLabel;
 
   @override
-  _EditNoteScreenState createState() => _EditNoteScreenState();
+  State<EditNoteScreen> createState() => _EditNoteScreenState();
 }
 
 class _EditNoteScreenState extends State<EditNoteScreen> {
   final _formKey = GlobalKey<FormState>();
+
   // list of temporarily deleted image files
   final List<File> _tmpDeletedImageFiles = [];
+
   // list of temporarily added image files
   final List<File> _tmpAddedImageFiles = [];
 
@@ -69,7 +72,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
           systemNavigationBarColor: ColorsConstant.grayColor,
@@ -82,11 +85,14 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(systemNavigationBarColor: _bgColor),
-      child: WillPopScope(
-        onWillPop: () async {
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) async {
+          if(didPop){
+            return;
+          }
           Navigator.of(context).pop();
-          deleteFileList(_tmpAddedImageFiles);
-          return false;
+          await deleteFileList(_tmpAddedImageFiles);
         },
         child: Scaffold(
           backgroundColor: _bgColor,
@@ -112,12 +118,12 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                 icon: const Icon(Icons.delete),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
                   onPressed: _saveNote,
                   child: Text(AppLocalizations.of(context)!.save),
                 ),
-              )
+              ),
             ],
           ),
           body: ListView(
@@ -141,10 +147,10 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                         onChangedContent: (value) => _content = value,
                       ),
                     ),
-                    if (_label.isNotEmpty) LabelCardWidget(title: _label)
+                    if (_label.isNotEmpty) LabelCardWidget(title: _label),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           bottomNavigationBar: SizedBox(
@@ -185,11 +191,11 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     );
   }
 
-  _saveNote() async {
+  Future<void> _saveNote() async {
     final bool isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      final bool isUpdate = (widget.note != null);
+      final bool isUpdate = widget.note != null;
 
       if (isUpdate) {
         _updateNote();
@@ -197,11 +203,11 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
         _addNote();
       }
       Navigator.of(context).pop();
-      deleteFileList(_tmpDeletedImageFiles);
+      await deleteFileList(_tmpDeletedImageFiles);
     }
   }
 
-  _addNote() {
+  void _addNote() {
     final note = Note(
       id: DateTime.now().millisecondsSinceEpoch,
       title: _title.trim(),
@@ -215,7 +221,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     Provider.of<NoteProvider>(context, listen: false).add(note);
   }
 
-  _updateNote() {
+  void _updateNote() {
     final note = widget.note!.copy(
       title: _title.trim(),
       content: _content.trim(),
@@ -228,34 +234,36 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     Provider.of<NoteProvider>(context, listen: false).update(note);
   }
 
-  _deleteNote() async {
+  Future<void> _deleteNote() async {
     if (widget.note != null) {
-      final action = await showConfirmDialog(
+      final bool? action = await showConfirmDialog(
         context: context,
-        title: AppLocalizations.of(context)!.remove_note + '?',
+        title: '${AppLocalizations.of(context)!.remove_note}?',
         content: AppLocalizations.of(context)!
             .are_you_sure_you_want_to_delete_this_note,
         actionName: AppLocalizations.of(context)!.remove,
       );
-      if (action == true) {
+      if (action ?? false) {
         await context.read<NoteProvider>().delete(widget.note!.id);
 
         // return the note so it can be undone
         Navigator.of(context).pop(widget.note);
 
-        deleteFileList(_tmpAddedImageFiles);
+        await deleteFileList(_tmpAddedImageFiles);
       }
     } else {
       Navigator.of(context).pop(widget.note);
-      deleteFileList(_tmpAddedImageFiles);
+      await deleteFileList(_tmpAddedImageFiles);
     }
   }
 
-  _addImageFromCamera(ImageSource camera) async {
+  Future<void> _addImageFromCamera(ImageSource camera) async {
     try {
-      File? imgFile = await pickImage(ImageSource.camera);
+      final File? imgFile = await pickImage(ImageSource.camera);
 
-      if (imgFile == null) return;
+      if (imgFile == null) {
+        return;
+      }
 
       setState(() {
         _imagePaths.insert(0, imgFile.path);
@@ -266,11 +274,13 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     }
   }
 
-  _addManyImagesFromGallery() async {
+  Future<void> _addManyImagesFromGallery() async {
     try {
-      List<File>? imgFileList = await pickManyImages();
+      final List<File>? imgFileList = await pickManyImages();
 
-      if (imgFileList == null) return;
+      if (imgFileList == null) {
+        return;
+      }
 
       final imgPathList = imgFileList.map((e) => e.path).toList();
 
@@ -283,7 +293,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
     }
   }
 
-  _addOrChangeLabel() async {
+  Future<void> _addOrChangeLabel() async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => PickLabelScreen(labelTitle: _label),
@@ -297,10 +307,10 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
 
 class ImagesStaggeredGridView extends StatefulWidget {
   const ImagesStaggeredGridView({
-    Key? key,
+    super.key,
     required this.imagePaths,
     required this.tmpDeletedImagePaths,
-  }) : super(key: key);
+  });
 
   final List<String> imagePaths;
   final List<File> tmpDeletedImagePaths;
@@ -321,7 +331,7 @@ class _ImagesStaggeredGridViewState extends State<ImagesStaggeredGridView> {
         shrinkWrap: true,
         crossAxisCount: 3,
         staggeredTileBuilder: (index) {
-          int total = widget.imagePaths.length;
+          final int total = widget.imagePaths.length;
 
           return getStaggeredTile(total: total, index: index);
         },
@@ -338,13 +348,14 @@ class _ImagesStaggeredGridViewState extends State<ImagesStaggeredGridView> {
             setState(() {});
           },
           onLongPress: () async {
-            final result = await showConfirmDialog(
-                context: context,
-                title: AppLocalizations.of(context)!.delete_photos + '?',
-                content:
-                    AppLocalizations.of(context)!.you_want_to_remove_this_image,
-                actionName: AppLocalizations.of(context)!.remove);
-            if (result == true) {
+            final bool? result = await showConfirmDialog(
+              context: context,
+              title: '${AppLocalizations.of(context)!.delete_photos}?',
+              content:
+                  AppLocalizations.of(context)!.you_want_to_remove_this_image,
+              actionName: AppLocalizations.of(context)!.remove,
+            );
+            if (result ?? false) {
               setState(() {
                 widget.tmpDeletedImagePaths.add(File(widget.imagePaths[index]));
                 widget.imagePaths.removeAt(index);
