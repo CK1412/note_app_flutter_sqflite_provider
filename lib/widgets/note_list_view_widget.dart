@@ -1,24 +1,25 @@
-import 'dart:io';
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/screens/edit_note_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
+
+import '../constants/app_constants.dart';
+import '../functions/future_functions.dart';
+import '../models/note.dart';
+import '../providers/note_provider.dart';
+import '../screens/edit_note_screen.dart';
 import 'note_card_widget.dart';
 
 class NoteListViewWidget extends StatelessWidget {
   const NoteListViewWidget({
-    Key? key,
+    super.key,
     required this.notes,
     required this.viewMode,
     this.scaffoldContext,
-  }) : super(key: key);
+  });
 
   final List<Note> notes;
   final String viewMode;
@@ -62,9 +63,8 @@ class NoteListViewWidget extends StatelessWidget {
           ScaffoldMessenger.of(scaffoldContext!).showSnackBar(
             SnackBar(
               content: Text(
-                AppLocalizations.of(scaffoldContext!)!
-                        .the_note_has_been_deleted +
-                    '!',
+                '${AppLocalizations.of(scaffoldContext!)!
+                        .the_note_has_been_deleted}!',
               ),
               duration: const Duration(seconds: 2),
               action: SnackBarAction(
@@ -80,14 +80,14 @@ class NoteListViewWidget extends StatelessWidget {
             ),
           );
           Future.delayed(const Duration(seconds: 3), () {
-            if (isUndo == false) {
+            if (!isUndo) {
               deleteFileList(
                 result.imagePaths.map((path) => File(path)).toList(),
               );
             }
           });
         }
-        refreshOrGetData(scaffoldContext!);
+        await refreshOrGetData(scaffoldContext!);
       },
       child: NoteCardWidget(
         note: currentNote,

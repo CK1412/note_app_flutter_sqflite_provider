@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/note_list_view_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_constants.dart';
+import '../functions/future_functions.dart';
+import '../models/note.dart';
+import '../providers/note_provider.dart';
+import '../widgets/note_list_view_widget.dart';
 
 class NoteSearch extends SearchDelegate<String> {
   final bool isNoteByLabel;
@@ -31,7 +32,7 @@ class NoteSearch extends SearchDelegate<String> {
             border: InputBorder.none,
           ),
       textTheme: theme.textTheme.copyWith(
-        headline6: TextStyleConstants.contentStyle2, // query Color
+        titleLarge: TextStyleConstants.contentStyle2, // query Color
       ),
     );
   }
@@ -48,7 +49,7 @@ class NoteSearch extends SearchDelegate<String> {
           }
         },
         icon: const Icon(Icons.clear),
-      )
+      ),
     ];
   }
 
@@ -95,8 +96,10 @@ class NoteSearch extends SearchDelegate<String> {
                     notes: matchNotes,
                     viewMode: snapshot.data.toString(),
                   )
-                : messageText(AppLocalizations.of(context)!
-                    .no_matching_results_were_found);
+                : messageText(
+                    AppLocalizations.of(context)!
+                        .no_matching_results_were_found,
+                  );
           }
         } else {
           return const Center(

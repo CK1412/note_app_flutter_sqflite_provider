@@ -14,10 +14,12 @@ class Label {
     required this.title,
   });
 
-  static Label fromJson(Map<String, Object?> json) => Label(
-        id: json[LabelField.id] as int,
-        title: json[LabelField.title].toString(),
-      );
+  factory Label.fromJson(Map<String, dynamic> map) {
+    return Label(
+      id: map[LabelField.id] as int,
+      title: map[LabelField.title] as String,
+    );
+  }
 
   Map<String, Object?> toJson() => {
         LabelField.id: id,

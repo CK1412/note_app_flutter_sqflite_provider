@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../constants/app_constants.dart';
 
 class NoteFormWidget extends StatelessWidget {
   const NoteFormWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
     required this.onChangedTitle,
     required this.onChangedContent,
-  }) : super(key: key);
+  });
 
   final String title;
   final String content;
@@ -48,7 +49,7 @@ class NoteFormWidget extends StatelessWidget {
               value!.isEmpty ? AppLocalizations.of(context)!.blank_note : null,
           onChanged: onChangedContent,
           textInputAction: TextInputAction.done,
-        )
+        ),
       ],
     );
   }

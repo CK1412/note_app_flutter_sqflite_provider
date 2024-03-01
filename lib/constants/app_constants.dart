@@ -102,7 +102,7 @@ ThemeData customThemeData(BuildContext context) => ThemeData(
 Widget messageText(String text) {
   return Center(
     child: Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16),
       child: Text(
         text,
         style: TextStyleConstants.contentStyle3.copyWith(color: Colors.white70),

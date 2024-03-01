@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
+import '../constants/app_constants.dart';
+import '../functions/future_functions.dart';
 
 class UnorderedListWidget extends StatelessWidget {
   const UnorderedListWidget({
-    Key? key,
+    super.key,
     required this.contentList,
-  }) : super(key: key);
+  });
 
   final List<Content> contentList;
 
@@ -24,7 +24,7 @@ class UnorderedListWidget extends StatelessWidget {
               child: RichText(
                 text: TextSpan(
                   children: [
-                    for (var item in contentList) ...[
+                    for (final item in contentList) ...[
                       TextSpan(
                         text: item.content,
                         style: TextStyleConstants.contentStyle2,
@@ -37,8 +37,8 @@ class UnorderedListWidget extends StatelessWidget {
                           ..onTap = (item.link.isNotEmpty)
                               ? () async => await openLink(item.link)
                               : null,
-                      )
-                    ]
+                      ),
+                    ],
                   ],
                 ),
               ),

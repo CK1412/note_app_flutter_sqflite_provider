@@ -1,20 +1,23 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/l10n/l10n.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/label_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/locale_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/utils/app_dialogs.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/custom_list_tile_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_constants.dart';
+import '../functions/future_functions.dart';
+import '../l10n/l10n.dart';
+import '../providers/label_provider.dart';
+import '../providers/locale_provider.dart';
+import '../providers/note_provider.dart';
+import '../utils/app_dialogs.dart';
+import '../widgets/custom_list_tile_widget.dart';
+
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
+
   static const routeName = '/setting';
 
   @override
@@ -34,13 +37,13 @@ class SettingsScreen extends StatelessWidget {
             iconData: Icons.note_alt,
             onTap: null,
             trailing: ElevatedButton(
-              child: Text(AppLocalizations.of(context)!.delete_all),
               onPressed: context.watch<NoteProvider>().items.isNotEmpty
                   ? () async {
-                      await _deleteAllNotes(context);
+                      _deleteAllNotes(context);
                       await _deleteFolderContainingImages();
                     }
                   : null,
+              child: Text(AppLocalizations.of(context)!.delete_all),
             ),
           ),
           CustomListTileWidget(
@@ -48,10 +51,10 @@ class SettingsScreen extends StatelessWidget {
             iconData: Icons.label,
             onTap: null,
             trailing: ElevatedButton(
-              child: Text(AppLocalizations.of(context)!.delete_all),
               onPressed: context.watch<LabelProvider>().items.isNotEmpty
                   ? () => _deleteAllLabels(context)
                   : null,
+              child: Text(AppLocalizations.of(context)!.delete_all),
             ),
           ),
           CustomListTileWidget(
@@ -66,7 +69,6 @@ class SettingsScreen extends StatelessWidget {
                     context.watch<LabelProvider>().items.isNotEmpty)
                 ? () => _resetApp(context)
                 : null,
-            child: Text(AppLocalizations.of(context)!.reset_app),
             style: OutlinedButton.styleFrom(
               side: BorderSide(
                 color: (context.watch<NoteProvider>().items.isNotEmpty ||
@@ -75,10 +77,11 @@ class SettingsScreen extends StatelessWidget {
                     : ColorsConstant.grayColor,
               ),
             ),
+            child: Text(AppLocalizations.of(context)!.reset_app),
           ),
           const SizedBox(
             height: 10,
-          )
+          ),
         ],
       ),
     );
@@ -117,58 +120,62 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  _deleteAllNotes(BuildContext context) {
+  void _deleteAllNotes(BuildContext context) {
     showConfirmDialog(
       context: context,
       title: AppLocalizations.of(context)!.alert,
       content: AppLocalizations.of(context)!
           .the_notes_you_have_added_will_be_deleted_and_cannot_be_recovered,
       actionName: AppLocalizations.of(context)!.delete_all,
-    ).then((result) {
-      if (result == true) {
+    ).then((bool? result) {
+      if (result ?? false) {
         context.read<NoteProvider>().deleteAll();
         deleteCacheDir();
       }
     });
   }
 
-  _deleteAllLabels(BuildContext context) {
+  void _deleteAllLabels(BuildContext context) {
     showConfirmDialog(
       context: context,
       title: AppLocalizations.of(context)!.alert,
       content: AppLocalizations.of(context)!
           .the_labels_you_have_added_will_be_deleted_and_cannot_be_recovered,
       actionName: AppLocalizations.of(context)!.delete_all,
-    ).then((result) async {
-      if (result == true) {
+    ).then((bool? result) async {
+      if (result ?? false) {
         await context.read<LabelProvider>().deleteAll();
-        context.read<NoteProvider>().removeAllLabelContent();
+        if(context.mounted) {
+          unawaited(context.read<NoteProvider>().removeAllLabelContent());
+        }
       }
     });
   }
 
-  _resetApp(BuildContext context) {
+  void _resetApp(BuildContext context) {
     showConfirmDialog(
       context: context,
       title: AppLocalizations.of(context)!.alert,
       content: AppLocalizations.of(context)!
           .all_your_data_will_be_deleted_and_cannot_be_recovered,
       actionName: AppLocalizations.of(context)!.reset,
-    ).then((result) async {
-      if (result == true) {
+    ).then((bool? result) async {
+      if (result ?? false) {
         await context.read<LabelProvider>().deleteAll();
-        await context.read<NoteProvider>().deleteAll();
+        if(context.mounted) {
+          await Provider.of<NoteProvider>(context,listen: false).deleteAll();
+        }
         await _deleteFolderContainingImages();
-        deleteCacheDir();
+        unawaited(deleteCacheDir());
       }
     });
   }
 
-  _deleteFolderContainingImages() async {
-    var appDir = await getApplicationDocumentsDirectory();
-    var _imagesDir = Directory('${appDir.path}/images/');
-    if (_imagesDir.existsSync()) {
-      _imagesDir.deleteSync(recursive: true);
+  Future<void> _deleteFolderContainingImages() async {
+    final appDir = await getApplicationDocumentsDirectory();
+    final imagesDir = Directory('${appDir.path}/images/');
+    if (imagesDir.existsSync()) {
+      imagesDir.deleteSync(recursive: true);
     }
   }
 }

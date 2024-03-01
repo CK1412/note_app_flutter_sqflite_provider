@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/functions/future_functions.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/locale_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/providers/note_provider.dart';
-import 'package:note_app_flutter_sqflite_provider/utils/note_search.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/note_list_view_widget.dart';
-import 'package:note_app_flutter_sqflite_provider/widgets/note_note_ui_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../constants/app_constants.dart';
+import '../functions/future_functions.dart';
+import '../providers/locale_provider.dart';
+import '../providers/note_provider.dart';
+import '../utils/note_search.dart';
+import '../widgets/note_list_view_widget.dart';
+import '../widgets/note_note_ui_widget.dart';
 import 'drawer_screen.dart';
 import 'edit_note_screen.dart';
 
 class AllNotesScreen extends StatefulWidget {
-  const AllNotesScreen({Key? key}) : super(key: key);
+  const AllNotesScreen({super.key});
 
   @override
   State<AllNotesScreen> createState() => _AllNotesScreenState();
@@ -37,7 +37,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if (_isLoading == true) {
+    if (_isLoading) {
       Future.wait([
         _loadViewMode(),
         Provider.of<LocaleProvider>(context, listen: false).fetchLocale(),
@@ -52,7 +52,9 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
   Future _loadViewMode() async {
     final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('view-mode')) return;
+    if (!prefs.containsKey('view-mode')) {
+      return;
+    }
     setState(() {
       _viewMode = prefs.getString('view-mode') ?? ViewMode.staggeredGrid.name;
     });
@@ -91,7 +93,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
           ),
           const SizedBox(
             width: 6,
-          )
+          ),
         ],
       ),
       drawer: const DrawerScreen(),
@@ -107,7 +109,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                         ? NoteListViewWidget(
                             notes: noteProvider.items,
                             viewMode: _viewMode,
-                            scaffoldContext: _scaffoldKey.currentContext!,
+                            scaffoldContext: _scaffoldKey.currentContext,
                           )
                         : child!,
                 child: NoNoteUIWidget(
@@ -121,7 +123,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const EditNoteScreen(),
-          ));
+          ),);
         },
       ),
     );

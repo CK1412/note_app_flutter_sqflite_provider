@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_flutter_sqflite_provider/constants/app_constants.dart';
-import 'package:note_app_flutter_sqflite_provider/models/note.dart';
+import '../constants/app_constants.dart';
+import '../models/note.dart';
 
 import 'images_staggered_grid_view_widget.dart';
 import 'label_card_widget.dart';
 
 class NoteCardWidget extends StatelessWidget {
   const NoteCardWidget({
-    Key? key,
+    super.key,
     required this.note,
-  }) : super(key: key);
+  });
 
   final Note note;
 
@@ -37,13 +37,13 @@ class NoteCardWidget extends StatelessWidget {
               limitedQuantity: LimitedQuantity.yes,
             ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (note.title.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Text(
                       note.title,
                       style: TextStyleConstants.titleStyle2,
@@ -55,10 +55,10 @@ class NoteCardWidget extends StatelessWidget {
                   style: TextStyleConstants.contentStyle3,
                   maxLines: 5,
                 ),
-                if (note.label.isNotEmpty) LabelCardWidget(title: note.label)
+                if (note.label.isNotEmpty) LabelCardWidget(title: note.label),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

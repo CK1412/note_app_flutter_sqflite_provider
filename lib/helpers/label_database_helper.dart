@@ -1,5 +1,5 @@
-import 'package:note_app_flutter_sqflite_provider/helpers/database_helper.dart';
-import 'package:note_app_flutter_sqflite_provider/models/label.dart';
+import '../models/label.dart';
+import 'database_helper.dart';
 
 class LabelDatabaseHelper {
   static final LabelDatabaseHelper instance = LabelDatabaseHelper._init();
