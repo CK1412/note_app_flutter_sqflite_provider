@@ -31,11 +31,11 @@ dependencies:
   # lauch URL
   url_launcher: ^6.2.5
   # pick image from camera and gallery
-  image_picker: ^0.8.4+4
+  image_picker: ^1.1.2
   # pick color
-  flutter_colorpicker: ^1.0.3
+  flutter_colorpicker: ^1.1.0
   # format date and localizations
-  intl: ^0.18.1
+  intl: ^0.19.0
   # zoomable image
   photo_view: ^0.14.0
 

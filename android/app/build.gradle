@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     namespace 'com.example.note_app_flutter_sqflite_provider'
 
@@ -49,9 +49,9 @@ android {
     defaultConfig {
         applicationId "github.ck1412.noteApp"
         minSdkVersion 21
-        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        targetSdkVersion 35
         multiDexEnabled true
     }
 
