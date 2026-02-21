@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.1.0+2
+version: 1.1.1+3
 
 environment:
   sdk: '>=3.2.5 <4.0.0'
@@ -13,31 +13,31 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.8
   # perform operations with path
-  path: ^1.8.3
+  path: ^1.9.0
   # find commonly used locations on the file system
-  path_provider: ^2.1.2
+  path_provider: ^2.1.5
   # store data locally
-  sqflite: ^2.3.2
+  sqflite: ^2.4.1
   # state management
-  provider: ^6.0.1
+  provider: ^6.1.5+1
   # use font of google
-  google_fonts: ^6.1.0
+  google_fonts: ^6.3.0
   # create staggered grid list
   flutter_staggered_grid_view: ^0.4.1
   # store data as key-value (in this project is to save the view mode)
-  shared_preferences: ^2.0.12
+  shared_preferences: ^2.5.3
   # lauch URL
-  url_launcher: ^6.2.5
+  url_launcher: ^6.3.1
   # pick image from camera and gallery
-  image_picker: ^0.8.4+4
+  image_picker: ^1.1.2
   # pick color
-  flutter_colorpicker: ^1.0.3
+  flutter_colorpicker: ^1.1.0
   # format date and localizations
-  intl: ^0.18.1
+  intl: ^0.19.0
   # zoomable image
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:
