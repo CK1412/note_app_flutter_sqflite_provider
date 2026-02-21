@@ -34,12 +34,12 @@ android {
     namespace 'com.example.note_app_flutter_sqflite_provider'
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         applicationId "github.ck1412.noteApp"
-        minSdkVersion 21
+        minSdkVersion 24
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         targetSdkVersion 35
